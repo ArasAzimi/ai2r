@@ -1,0 +1,24 @@
+{
+  "train":{
+    "hw_resource":
+    {
+      "RUN_GPU" :        true,
+      "USE_GPU":         100
+    },
+    "img_w" :            139,
+    "img_h" :            139,
+    "test_size" :        0.25,
+    "batch_size":        32,
+    "epochs":            75,
+    "learning_rate" :    0.01
+  },
+
+  "valid":
+  {
+    "img_w" :            64,
+    "img_h" :            64
+  },
+  "visualization":{
+      "tSNE": true
+  }
+}

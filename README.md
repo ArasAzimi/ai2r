@@ -1,2 +1,7 @@
 # ai2r
-An abstraction off another project which does identify and classify airplanes!
+
+To train:
+`python ai2r.py -d dataset_name -m inceptionv3_pretrained --gpu 1`
+
+`dataset_name` is the name of the dataset which has to be put in raw directory.
+For example: python ai2r.py -d aircrafts -m inceptionv3_pretrained --gpu 1
