@@ -38,7 +38,6 @@ class InceptionV3_pt:
 		#Create your own model
 		model = Model(input=input, output=x)
 
-		#In the summary, weights and layers from VGG part will be hidden, but they will be fit during the training
-		print(">ia> Modified model using pretrained VGG16 model from keras:\n")
+		print(">ia> Modified model using pretrained InceptionV3 model from keras:\n")
 		model.summary()
 		return model

@@ -59,6 +59,7 @@ def main():
 	datasets_dir = 'datasets'
 	raw_datasets_dir = 'raw'
 	RUN_GPU = str2bool(args["gpu"])
+	use_raw_data = False
 
 	# Reading configurations from config.json
 	with open('config.json') as json_config_file:
@@ -73,6 +74,11 @@ def main():
 	epochs = 			CONFIG['train']['epochs']
 	batch_size = 		CONFIG['train']['batch_size']
 
+	downlaod_dataset_if_not_exists = CONFIG['dataset']['downlaod_ai2r_dataset']
+	if downlaod_dataset_if_not_exists:
+		use_raw_data = False
+
+
 	img_size = img_w, img_h
 	hw_config.configure_gpu_cpu(RUN_GPU, GPU_ALLOCATION)
 
@@ -81,10 +87,17 @@ def main():
 	checkpoint_path=out_dir+ "/weights-improvement-{epoch:02d}-{val_acc:.2f}.hdf5"
 	np_dataset = datasets_dir+'/'+dataset
 
-	r = check.input_requrements(dataset, np_dataset)
+	r = check.input_requrements(dataset, np_dataset, downlaod_dataset_if_not_exists)
 	if not safe_str_cmp(r , "OK"):
 		print(">ia> Exited with error: {}".format(r))
 		return 0
+
+	if downlaod_dataset_if_not_exists:
+		if os.path.isfile('datasets.zip')== False:
+			downlaod_dataset(datasets_dir)
+		if os.path.isfile(datasets_dir+'/aircrafts.npy')== False:
+			extract_dataset(datasets_dir)
+
 	r = check.model_requirements(model_name, img_size)
 	if not safe_str_cmp(r , "OK"):
 		print(">ia> Exited with error: {}".format(r))
@@ -99,6 +112,7 @@ def main():
 		os.makedirs(datasets_dir)
 
 	if os.path.isfile(np_dataset+'.npy')== False:
+		#if os.path.isdir(datasets_dir) == False:
 		print(">ia> Creating numpy dataset from the input...")
 		imagePaths = sorted(list(paths.list_images(raw_datasets_dir+'/'+dataset)))
 		data, labels = prepare_input(imagePaths, img_size)
@@ -110,6 +124,7 @@ def main():
 		print(">ia> Loading previously processed input...")
 		data = np.load(np_dataset+'.npy')
 		labels = np.load(np_dataset+'_lbs.npy')
+
 
 	trainX, testX, trainY, testY = split_dataset(test_size, data, labels)
 

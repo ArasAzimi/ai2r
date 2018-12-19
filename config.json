@@ -1,4 +1,8 @@
 {
+  "dataset":{
+    "downlaod_ai2r_dataset": true
+  },
+
   "train":{
     "hw_resource":
     {
@@ -9,7 +13,7 @@
     "img_h" :            139,
     "test_size" :        0.25,
     "batch_size":        32,
-    "epochs":            75,
+    "epochs":            2,
     "learning_rate" :    0.01
   },
 

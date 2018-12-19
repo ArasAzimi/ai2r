@@ -10,7 +10,7 @@ def model_requirements(argument, img_size):
             print(">ia> Input size for Inception v3 should be at least {}*{}; got {}".format(inceptionV3_min_dim, inceptionV3_min_dim, img_size))
             return "model_error"
     return 'OK'
-def input_requrements(dataset, np_dataset):
+def input_requrements(dataset, np_dataset, downlaod_dataset_if_not_exists):
     '''
     Checks if input data exists. This can be either raw data (images) organized
     in a directory with name as the dataset name and subdirectories with class
@@ -19,6 +19,11 @@ def input_requrements(dataset, np_dataset):
     import os
     if not os.path.isdir('raw/'+dataset):
         if not os.path.isfile(np_dataset+'.npy'):
-            print(">ia> Input does not exists. Please either put raw data in {} or np data and labels in {}".format('raw/'+dataset, np_dataset.split(os.path.sep)[0]))
-            return "input_error"
+            if not downlaod_dataset_if_not_exists:
+                dataname = np_dataset.split(os.path.sep)[0]
+                print(">ia> Input does not exists. Do either one of the following:\n \
+                1) Add raw train data to {} \n \
+                2) Add npy train data and labels to /{} ({}.npy, {}_lbs.npy) \n \
+                3) Set downlaod_ai2r_dataset in config.json to true. ".format('raw/'+dataset, dataname, dataset, dataset))
+                return "input_error"
     return 'OK'
