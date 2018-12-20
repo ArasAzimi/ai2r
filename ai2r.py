@@ -170,7 +170,7 @@ def main():
 	        steps_per_epoch=len(trainX) // batch_size,
 	        epochs=epochs,
 	        validation_data=validation_generator,
-	        validation_steps=800,
+	        validation_steps=len(testX) // batch_size,,
 			callbacks=None)
 
 	# Evaluate the network and save the report to eval_report
