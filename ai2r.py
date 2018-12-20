@@ -194,6 +194,7 @@ def main():
 	print(eval_report)
 	# plot the training loss and accuracy
 	plot_save_results(model_fit, model_path)
+	save_model(model, model_path, lb, eval_report, CONFIG)
 
 # Python 3 does not need if __name__ == "__main__":
 if __name__ == "__main__":
