@@ -144,7 +144,7 @@ def main():
 
 	# Train the model
 	train_datagen = ImageDataGenerator(
-	        rescale=1./255,
+	        rescale=1,
 			rotation_range=30,
 			width_shift_range=0.1,
 			height_shift_range=0.1,
@@ -153,7 +153,7 @@ def main():
 	        zoom_range=0.2,
 	        horizontal_flip=True)
 
-	test_datagen = ImageDataGenerator(rescale=1./255)
+	test_datagen = ImageDataGenerator(rescale=1)
 
 	train_generator = train_datagen.flow(
 	        trainX,
