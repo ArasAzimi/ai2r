@@ -93,9 +93,9 @@ def main():
 		return 0
 
 	if downlaod_dataset_if_not_exists:
-		if os.path.isfile('datasets.zip')== False:
-			downlaod_dataset(datasets_dir)
 		if os.path.isfile(datasets_dir+'/aircrafts.npy')== False:
+			if os.path.isfile('datasets.zip')== False:
+				downlaod_dataset(datasets_dir)
 			extract_dataset(datasets_dir)
 
 	r = check.model_requirements(model_name, img_size)
