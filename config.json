@@ -13,7 +13,7 @@
     "img_h" :            139,
     "test_size" :        0.25,
     "batch_size":        32,
-    "epochs":            2,
+    "epochs":            66,
     "learning_rate" :    0.01
   },
 

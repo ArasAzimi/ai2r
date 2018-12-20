@@ -13,6 +13,16 @@ from util import check, hw_config
 from util.prep import *
 from util.postp import *
 
+def vgg16_pretrained(img_size,lb):
+	"""
+	This fucntion will take the pretrained VGG16 model from Keras and modify
+	the input size, number of classes, or both based on user input.
+	"""
+	from models.vgg import VGG16_pt
+	print(">ia> Building pretrained vgg16 model...")
+	model = VGG16_pt.build(width=img_size[0], height=img_size[1], depth=3, classes=len(lb.classes_))
+	return model
+
 def inceptionv3_pretrained(img_size, lb):
 	"""
 	This function will take the pretrained InceptionV3 model from Keras and modify
@@ -29,6 +39,8 @@ def select_model(argument, img_size, lb):
 	"""
 	if safe_str_cmp(argument , "inceptionv3_pretrained"):
 		model = inceptionv3_pretrained(img_size,lb)
+	elif safe_str_cmp(argument , "vgg16_pretrained"):
+		model = vgg16_pretrained(img_size, lb)
 	else:
 		return None
 
@@ -170,7 +182,7 @@ def main():
 	        steps_per_epoch=len(trainX) // batch_size,
 	        epochs=epochs,
 	        validation_data=validation_generator,
-	        validation_steps=len(testX) // batch_size,,
+	        validation_steps=len(testX) // batch_size,
 			callbacks=None)
 
 	# Evaluate the network and save the report to eval_report
