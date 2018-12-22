@@ -43,24 +43,39 @@ label_file = out_dir+'/'+files[int(user_model_choice)]+'/aircrafts_lbls.pickle'
 
 if model == 'vgg16_pretrained':
 	# Setting this to True will run vg116 trained on imagenet first to make sure there is an airplane in the image not a horse!
-		image = cv2.resize(image_original, (img_w, img_h))
-		image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+	run_vgg16_keras_first = True
 
-		# Load the model and label binarizer
-		print(">ia> loading network and label binarizer...")
-		model = load_model(model_file)
-		lb = pickle.loads(open(label_file, "rb").read())
+	if run_vgg16_keras_first == True:
+		labels = pretrained.predict_vgg16_keras_imagenet(args["image"])
 
-		predictions = model.predict(image)
+		for i in range(len(labels[0])):
+		    print('%s (%.2f%%)' % (labels[0][i][1], labels[0][i][2]*100))
 
-		# Find the class label with the largest probability
-		i = predictions.argmax(axis=1)[0]
-		labels = lb.classes_[i]
+		label1 = labels[0][0][1]
+		percent1 = labels[0][0][2]
 
-		label = labels
-		percent = predictions[0][i] * 100
+		label2 = labels[0][1][1]
+		percent2 = labels[0][1][2]
+		if	label1=='airliner' or label2=='airliner':
+			image = cv2.resize(image_original, (img_w, img_h))
+			image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+
+			# Load the model and label binarizer
+			print(">ia> Loading model and label binarizer...")
+			model = load_model(model_file)
+			lb = pickle.loads(open(label_file, "rb").read())
+			predictions = model.predict(image)
+
+			# Find the class label with the largest probability
+			i = predictions.argmax(axis=1)[0]
+			labels = lb.classes_[i]
+
+			label = labels
+			percent = predictions[0][i] * 100
+		else:
+			print('>ia> This is not an airliner. Do not run ai2r aircraft type recognition!')
 else:
-	print(">ia> Check model is correct!")
+	print(">ia> Check if model is a correct one!")
 
 
 (B, G, R) = (0,0,0)
@@ -72,7 +87,7 @@ else: # print in Yellow
 	(B, G, R) =(0,255,255)
 
 
-legend = "{}: {}%".format(label, round(percent, 2))
+legend = "Detected: {}".format(label)
 cv2.putText(image_original, legend, (20, 40), cv2.FONT_HERSHEY_DUPLEX, 0.7,	(B, G, R), 2)
 cv2.imshow("Image", image_original)
 cv2.waitKey(0)
