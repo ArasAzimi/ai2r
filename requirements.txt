@@ -1,0 +1,8 @@
+numpy
+pandas
+keras
+tensorflow
+tensorflow-gpu
+json
+imutils
+opencv-python

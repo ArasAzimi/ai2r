@@ -1,10 +1,39 @@
-# ai2r
+# AI for Airplane classification (ai2r)
 
-To train:
-`python ai2r.py -d dataset_name -m inceptionv3_pretrained --gpu 1`
+### Training
+Assuming you have got the requirements setup on your system, a virtual environment or a docker; start by `python ai2r.py -d dataset_name -m model_name --gpu 1`.
+* `dataset_name` is the name of the dataset which has to be put in raw directory.
+* `model_name` is the name of a model to be used. This shoud be defined in models directory. Currently this can be set to one of:  
+  > inceptionv3_pretrained  
+  > vgg16_pretrained  
 
-`dataset_name` is the name of the dataset which has to be put in raw directory.
-For example: python ai2r.py -d aircrafts -m inceptionv3_pretrained --gpu 1
+For example: `python ai2r.py -d aircrafts -m inceptionv3_pretrained --gpu 1` will train the aircrafts dataset using inceptionv3 with trained weights from imagent.     
 
-To predict:
-`python predict.py -i path_to_image`
+If this is the first time, this command will trigger downloading the aircrafts dataset and the corresponding labels in .npy format. Once download is complete the code will unzip the data and add it to a directory i.e., "datasets". The training will start with the configured parameters in config.json. Once the training is done the results will be saved under out directory. The results include the trained model, binarized labels in pickle format, a summary of the training and a .png graph of how the training/validation progressed different epochs
+
+### Prediction
+Assuming some training is done and results are available under out directory, you can start by `python predict.py -i path_to_image`. This will scan the out directory for trained models and a prompt will ask user for the desired model to be used for prediction.
+
+## Data
+The data is scraped from the web. Currently it contains samples for 13 types of airplanes mostly airlines. Data is not exactly balanced but it is good enough to fly!
+Here is a list of airplanes in the data:  
+
+|Manufacturer|Type|Code|#Samples|
+|---|---|---|---|  
+|A330|Airbus|a330|471|
+|A380|Airbus|a380|747|
+|B737|Boeing|b737|463|
+|B757|Boeing|b757|684|
+|Citation II|Cessna|c550|421|
+|concord|Concord|conc|325|
+|DC-10|Douglas|dc10|573|
+|50|Fokker|f50|523|
+|100|Fokker|f100|482|
+|Falcon 900|Dassault|f900|613|
+|Gulfstream V|glf5|Gulfstream|466|
+|Jetstream 31|British Aerospace|js31|525|
+|Yak-40|Yakovlev|yk40|531|
+
+
+## Requirements:
+Refer to requirements.txt
