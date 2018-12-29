@@ -14,11 +14,16 @@ If this is the first time, this command will trigger downloading the aircrafts d
 ### Prediction
 Assuming some training is done and results are available under out directory, you can start by `python predict.py -i path_to_image`. This will scan the out directory for trained models and a prompt will ask user for the desired model to be used for prediction.
 
+#### Prediction using docker:
+* `cd` to the ai2r project directory.
+* Add the path to the image you would like to run a prediction on to the `Preduct.sh` script.
+* Run `bash runDocker.sh`. This will run a docker container with the requirements installed. It will also mount the current directory to `/ai2r` directory in the docker so that the docker container has access to `Predict.sh`. The docker image will run `Predict.sh` in the same manner as if you run predict.py on your system.
+
 ## Data
 The data is scraped from the web. Currently it contains samples for 13 types of airplanes mostly airlines. Data is not exactly balanced but it is good enough to fly!
 Here is a list of airplanes in the data:  
 
-|Manufacturer|Type|Code|#Samples|
+|Type|Manufacturer|Code|#Samples|
 |---|---|---|---|  
 |A330|Airbus|a330|471|
 |A380|Airbus|a380|747|
