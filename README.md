@@ -16,12 +16,9 @@ Assuming some training is done and results are available under out directory, yo
 
 #### Prediction using docker:
 * `cd` to the ai2r project directory.
-* Add the path to the image you would like to run a prediction on to the `Preduct.sh` script.
-* If you do not have access to a gpu, modify `runDocker.sh` to use the CPU version. For this comment out the line with nvidia_docker and uncommet the one starting with docker.
-For example:  
--- To use rev1.0 GPU version runDocker.sh should run: `nvidia-docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0`  
--- To use rev1.0 CPU version runDocker.sh should run: `docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu`
-* Run `bash runDocker.sh`. This will run a docker container with the requirements installed. It will also mount the current directory to `/ai2r` directory in the docker so that the docker container has access to `Predict.sh`. The docker image will run `Predict.sh` in the same manner as if you run predict.py on your system.
+* Add the path to the image you would like to run a prediction on to the `Predict.sh` script.
+* Run `bash runDocker.sh`. This will run a docker container with the requirements installed. It will also mount the current directory to `/ai2r` directory in the docker so that the docker container has access to `Predict.sh`. The docker image will run `Predict.sh` in the same manner as if you run predict.py on your system or in virtual environment.
+* Running `bash runDocker.sh` by default will use a GPU version docker image and run prediction on the test image specified in `Predict.sh`. To use a docker image with CPU version of keras/tensorflow for prediction use `bash runDocker.sh cpu`
 
 ## Data
 The data is scraped from the web. Currently it contains samples for 13 types of airplanes mostly airlines. Data is not exactly balanced but it is good enough to fly!
