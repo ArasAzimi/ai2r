@@ -1,0 +1,55 @@
+FROM ubuntu:16.04
+
+ARG TENSORFLOW_VERSION=1.11.0
+ARG KERAS_VERSION=2.1.6
+
+# Updating Ubuntu packages
+RUN apt-get update && yes|apt-get upgrade
+RUN apt-get install -y emacs
+
+# Adding wget and bzip2
+RUN apt-get install -y wget bzip2
+
+# Add sudo
+RUN apt-get -y install sudo
+
+# Add user ubuntu with no password, add to sudo group
+RUN adduser --disabled-password --gecos '' igneous
+RUN adduser igneous sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER igneous
+WORKDIR /home/igneous/
+RUN chmod a+rwx /home/igneous/
+#RUN echo `pwd`
+
+# Anaconda installing
+RUN wget https://repo.continuum.io/archive/Anaconda3-5.3.1-Linux-x86_64.sh
+RUN bash Anaconda3-5.3.1-Linux-x86_64.sh -b
+RUN rm Anaconda3-5.3.1-Linux-x86_64.sh
+
+# Set path to conda
+ENV PATH /home/igneous/anaconda3/bin:$PATH
+
+# Updating Anaconda packages
+RUN conda update conda
+RUN conda update anaconda
+RUN conda update --all
+RUN conda --version
+
+RUN conda install -c anaconda numpy
+RUN conda install -c anaconda pandas
+RUN conda install scikit-learn
+RUN conda install -c conda-forge matplotlib
+RUN conda install -y -c conda-forge tensorflow=${TENSORFLOW_VERSION}
+RUN conda install -c conda-forge keras=${KERAS_VERSION}
+RUN conda install -c anaconda jupyter
+RUN pip install opencv-contrib-python
+RUN pip install cmake
+RUN pip install imutils
+
+#Setting up working directory
+RUN sudo mkdir /ai2r
+RUN cd /ai2r
+WORKDIR /ai2r
+
+CMD bash Predict.sh

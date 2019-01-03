@@ -43,7 +43,7 @@ label_file = out_dir+'/'+files[int(user_model_choice)]+'/aircrafts_lbls.pickle'
 
 if model == 'vgg16_pretrained':
 	# Setting this to True will run vg116 trained on imagenet first to make sure there is an airplane in the image not a horse!
-	run_vgg16_keras_first = True
+	run_vgg16_keras_first = False
 
 	if run_vgg16_keras_first == True:
 		labels = pretrained.predict_vgg16_keras_imagenet(args["image"])
@@ -74,6 +74,22 @@ if model == 'vgg16_pretrained':
 			percent = predictions[0][i] * 100
 		else:
 			print('>ia> This is not an airliner. Do not run ai2r aircraft type recognition!')
+	else:
+		image = cv2.resize(image_original, (img_w, img_h))
+		image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+
+		# Load the model and label binarizer
+		print(">ia> Loading model and label binarizer...")
+		model = load_model(model_file)
+		lb = pickle.loads(open(label_file, "rb").read())
+		predictions = model.predict(image)
+
+		# Find the class label with the largest probability
+		i = predictions.argmax(axis=1)[0]
+		labels = lb.classes_[i]
+
+		label = labels
+		percent = predictions[0][i] * 100
 else:
 	print(">ia> Check if model is a correct one!")
 
