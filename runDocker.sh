@@ -26,10 +26,10 @@ else
   if [ "$2" = "train" ]
   then
     echo "--- Using Docker with GPU for training---"
-    docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0 bash
+    nvidia-docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0 bash
   else
         echo "--- DEFAULT: Using Docker with GPU for prediction---"
-    docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0
+    nvidia-docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0
   fi
 fi
 
