@@ -61,7 +61,7 @@ if model == 'vgg16_pretrained':
 			image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
 
 			# Load the model and label binarizer
-			print(">ia> Loading model and label binarizer...")
+			print(">ia> Loading vgg16_pretrained model and label binarizer...")
 			model = load_model(model_file)
 			lb = pickle.loads(open(label_file, "rb").read())
 			predictions = model.predict(image)
@@ -79,7 +79,7 @@ if model == 'vgg16_pretrained':
 		image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
 
 		# Load the model and label binarizer
-		print(">ia> Loading model and label binarizer...")
+		print(">ia> Loading vgg16_pretrained model and label binarizer...")
 		model = load_model(model_file)
 		lb = pickle.loads(open(label_file, "rb").read())
 		predictions = model.predict(image)
@@ -90,6 +90,23 @@ if model == 'vgg16_pretrained':
 
 		label = labels
 		percent = predictions[0][i] * 100
+elif  model == 'inceptionv3_pretrained':
+	image = cv2.resize(image_original, (img_w, img_h))
+	image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+
+	# Load the model and label binarizer
+	print(">ia> Loading inceptionv3_pretrained model and label binarizer...")
+	model = load_model(model_file)
+	lb = pickle.loads(open(label_file, "rb").read())
+	predictions = model.predict(image)
+
+	# Find the class label with the largest probability
+	i = predictions.argmax(axis=1)[0]
+	labels = lb.classes_[i]
+
+	label = labels
+	percent = predictions[0][i] * 100
+
 else:
 	print(">ia> Check if model is a correct one!")
 
