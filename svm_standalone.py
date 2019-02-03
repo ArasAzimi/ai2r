@@ -6,15 +6,24 @@ SVM Standalone
 Run SVM on a dataset. Dataset should be put in ./test directory.
 """
 
+from util.decorators import time_it
 from util.prep import *
 import matplotlib.pyplot as plt
 from sklearn import svm, metrics
 import pandas as pd
 import os
-import time
 from werkzeug.security import safe_str_cmp
 
-def ai2r_svm(in_data_path, img_size):
+@time_it
+def data_prep(**kwargs):
+    data, labels = prepare_input(kwargs["in_data_path"], kwargs["img_size"])
+    data, labels = convert_np(data, labels)
+    data = normalize_input(data)
+
+    return data, labels
+
+
+def ai2r_svm(**kwargs):
     """
     Runs tSNE on a dataset in /test directory
     """
@@ -22,13 +31,7 @@ def ai2r_svm(in_data_path, img_size):
     if os.path.isdir(out_dir) == False:
         os.makedirs(out_dir)
     if os.path.isfile(out_dir+'.npy')== False:
-        time_start = time.time()
-        data, labels = prepare_input(in_data_path, img_size)
-        data, labels = convert_np(data, labels)
-        data = normalize_input(data)
-        time_end = time.time()
-        time_took = time_end - time_start
-        print('>ia> Prep took {} seconds to complete'.format(time_took))
+        data, labels = data_prep(in_data_path=kwargs["in_data_path"], img_size=kwargs["img_size"])
         np.save(out_dir, data)
         np.save(out_dir+'_lbs', labels)
     else:
@@ -39,7 +42,7 @@ def ai2r_svm(in_data_path, img_size):
     # Vectorize the inputs
     #reshape_size = data.shape[0], data.shape[1]*data.shape[2]*data.shape[3]
     reshape_size = (data.shape[0], -1)
-    print(data.shape)
+    #print(data.shape)
     data = np.reshape(data, reshape_size)
 
     # Create dataframe
@@ -53,8 +56,6 @@ def ai2r_svm(in_data_path, img_size):
     df['label'] = df['label'].apply(lambda i: str(i))
     print('Size of the dataframe: {}'.format(df.shape))
     rndperm = np.random.permutation(df.shape[0])
-
-    time_start = time.time()
 
     test_size = 0.5
     train_X, test_X, train_y, test_y = split_dataset(test_size, X, y)
@@ -82,4 +83,4 @@ if __name__ == "__main__":
     if os.path.isdir(input_path) == False:
         print("Input does not exists ....")
     else:
-        ai2r_svm(in_data_path, img_size)
+        ai2r_svm(in_data_path=in_data_path, img_size=img_size)
