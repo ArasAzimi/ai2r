@@ -11,6 +11,12 @@ For example: `python ai2r.py -d aircrafts -m inceptionv3_pretrained --gpu 1` wil
 
 If this is the first time, this command will trigger downloading the aircrafts dataset and the corresponding labels in .npy format. Once download is complete the code will unzip the data and add it to a directory i.e., "datasets". The training will start with the configured parameters in config.json. Once the training is done the results will be saved under out directory. The results include the trained model, binarized labels in pickle format, a summary of the training and a .png graph of how the training/validation progressed different epochs
 
+#### Training using docker:
+* `cd` to the ai2r project directory.
+* Specify the model and dataset to be used in `Train.sh` script.
+* Run `bash runDocker.sh gpu train`. This will run a docker container with the requirements installed. It will also mount the current directory to `/ai2r` directory in the docker so that the docker container has access to `Train.sh`. The docker image will run `Train.sh` in the same manner as if you run ai2r.py on your system or in virtual environment.
+* To use a docker image with CPU version of keras/tensorflow for training use `bash runDocker.sh cpu train`
+
 ### Prediction
 Assuming some training is done and results are available under out directory, you can start by `python predict.py -i path_to_image`. This will scan the out directory for trained models and a prompt will ask user for the desired model to be used for prediction.
 
