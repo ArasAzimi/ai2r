@@ -1,0 +1,6 @@
+models will be copied in this directory inorder for the flask api to be able to run predictions.
+
+two files are needed for any model_name:
+
+"model_name.model" containing model weights
+"model_name_lbls.pickle" containing lables
