@@ -26,8 +26,9 @@ def main():
 	model = files[int(user_model_choice)].split('_e')[0]
 	model_file = out_dir+'/'+files[int(user_model_choice)]+'/aircrafts.model'
 	label_file = out_dir+'/'+files[int(user_model_choice)]+'/aircrafts_lbls.pickle'
+	config_file = 'config.json'
 
-	obj = Predict(image, model, model_file, label_file)
+	obj = Predict(image, model, model_file, label_file, config_file=config_file)
 	res = obj.prediction()
 
 	label = res['label']

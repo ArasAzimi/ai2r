@@ -8,6 +8,7 @@ class Predict():
         self.model = args[1]
         self.model_file = args[2]
         self.label_file = args[3]
+        self.config_file = kwargs['config_file']
 
     def prediction(self):
     	from predict_pretrained import pretrained
@@ -25,7 +26,7 @@ class Predict():
 
     	image_original = cv2.imread(image)
     	# Reading configurations from config.json
-    	with open('config.json') as json_config_file:
+    	with open(self.config_file) as json_config_file:
     		CONFIG = json.load(json_config_file)
 
     	# Retrive configuration paramters from the json file
