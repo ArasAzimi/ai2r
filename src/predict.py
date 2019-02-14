@@ -13,6 +13,7 @@ class Predict():
     def prediction(self):
     	from predict_pretrained import pretrained
     	from keras.models import load_model
+        from keras import backend
     	import pickle
     	import numpy as np
     	import json
@@ -104,4 +105,6 @@ class Predict():
 
     	res = {"label":label,
                "percent":percent}
+
+        backend.clear_session()
     	return res
