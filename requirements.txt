@@ -1,8 +1,8 @@
 numpy
 pandas
 keras
+sklearn
 tensorflow
 tensorflow-gpu
-json
 imutils
 opencv-python
