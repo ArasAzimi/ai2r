@@ -2,7 +2,6 @@ from flask import (
     jsonify, Blueprint, request, render_template, current_app)
 import os
 
-from predict_pretrained import pretrained
 
 bp = Blueprint('show', __name__)
 

@@ -44,10 +44,10 @@ def create_app(test_config=None):
         return 'Hello. Welcome to ai2r homepage!'.format(user)
 
     # Apply the blueprints to the app
-    from api import (show)
+    import show
 
-    from api.resources.train import TrainResource
-    from api.resources.predict import PredictResource
+    from resources.train import TrainResource
+    from resources.predict import PredictResource
 
     api.add_resource(TrainResource, '/train')
     api.add_resource(PredictResource, '/predict')

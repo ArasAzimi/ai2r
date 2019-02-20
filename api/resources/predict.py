@@ -1,6 +1,8 @@
 from flask import request, current_app
 from flask_restful import Resource, reqparse
-import os
+import os, sys
+
+sys.path.append(os.path.abspath(os.path.join('..')))
 
 from src.predict import Predict
 
