@@ -1,4 +1,4 @@
-# DEFAULT: bash runDocker.sh             ---> Predict on GPU
+# DEFAULT: bash runDocker.sh             ---> Predict on GPU (on Windows OS deafult falls back to CPU)
 #          bash runDocker.sh CPU         ---> Predict on CPU
 #          bash runDocker.sh CPU  train  ---> Train on CPU
 #          bash runDocker.sh GPU  train  ---> Train on GPU
