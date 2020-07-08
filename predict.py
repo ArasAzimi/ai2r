@@ -17,6 +17,9 @@ def main():
 	# Check if model and label files exists
 	print("-- Available trained models --")
 	# List the sub-dicrectories in out directory:
+	if not os.path.isdir(out_dir):
+		os.makedirs(out_dir)
+
 	files = os.listdir(out_dir)
 	for name, index in enumerate(files):
 	    print(str(name)+": "+index)
