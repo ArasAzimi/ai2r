@@ -6,10 +6,26 @@
 ai2rDIR=$(pwd)
 echo ">ia> Current Directory:" $ai2rDIR
 echo ">ia> OS type:" $OSTYPE
+echo $2
+
+if [ "$OSTYPE" == "darwin18" ]
+then
+  echo ">ia> iOS host uses CPU docker version."
+  # Force to use CPU version of docker
+  if [ "$2" = "train" ]
+  then
+      echo ">ia> Using Docker with CPU for training."
+      docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash Train.sh
+  else
+      echo ">ia> Using Docker with CPU for prediction."
+      docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash Predict.sh
+  fi
+fi
+
 if [ "$OSTYPE" == "msys" ]
 then
     echo ">ia> Windows host uses CPU docker version."
-    # Force to use CPU version of docker 
+    # Force to use CPU version of docker
     if [ "$2" = "train" ]
     then
         echo ">ia> Using Docker with CPU for training."
