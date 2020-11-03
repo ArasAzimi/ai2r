@@ -18,9 +18,9 @@ def vgg16_pretrained(img_size, lb):
     This function will take the pre-trained VGG16 model from Keras and modify
     the input size, number of classes, or both based on user input.
     """
-    from models.vgg import VGG16_pt
+    from models.vgg import Vgg16_pt
     print(">ia> Building pre-trained vgg16 model...")
-    model = VGG16_pt.build(width=img_size[0], height=img_size[1], depth=3, classes=len(lb.classes_))
+    model = Vgg16_pt.build(width=img_size[0], height=img_size[1], depth=3, classes=len(lb.classes_))
     return model
 
 
@@ -72,9 +72,14 @@ def main():
 
     dataset = args["dataset"]
     model_name = args["model"]
+    run_gpu = str2bool(args["gpu"])
+
+    # dataset = "aircrafts"
+    # model_name = "vgg16_pretrained"
+    # run_gpu = False
+
     datasets_dir = 'datasets'
     raw_datasets_dir = 'raw'
-    RUN_GPU = str2bool(args["gpu"])
     use_raw_data = False
 
     # Reading configurations from config.json
@@ -82,7 +87,7 @@ def main():
         config = json.load(json_config_file)
 
     # Retrieve configuration parameters from the json file
-    gpu_allocation = config['train']['hw_resource']['USE_GPU']
+    gpu_allocation = config['train']['hw_resource']['use_gpu']
     test_size = config['train']['test_size']
     img_w = config['train']['img_w']
     img_h = config['train']['img_h']
@@ -95,7 +100,7 @@ def main():
         use_raw_data = False
 
     img_size = img_w, img_h
-    hw_config.configure_gpu_cpu(RUN_GPU, gpu_allocation)
+    hw_config.configure_gpu_cpu(run_gpu, gpu_allocation)
 
     out_dir = 'out/' + dataset + '/' + model_name + '_e' + str(epochs) + '_lr' + str(learning_rate) + '_bs' + str(
         batch_size) + '/'

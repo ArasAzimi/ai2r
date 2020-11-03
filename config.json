@@ -6,8 +6,8 @@
   "train":{
     "hw_resource":
     {
-      "RUN_GPU" :        true,
-      "USE_GPU":         100
+      "run_gpu" :        true,
+      "use_gpu":         100
     },
     "img_w" :            139,
     "img_h" :            139,
