@@ -24,10 +24,10 @@ class InceptionV3_pt:
 		#model.summary()
 
 		# Create your own input format
-		input = Input(shape=inputShape,name = 'image_input')
+		input_image = Input(shape=inputShape,name = 'image_input')
 
 		# Use the generated model
-		output_incv3_conv = model(input)
+		output_incv3_conv = model(input_image)
 
 		#Add the fully-connected layers
 		x = Flatten(name='flatten')(output_incv3_conv)
@@ -36,7 +36,7 @@ class InceptionV3_pt:
 		x = Dense(classes, activation='softmax', name='predictions')(x)
 
 		#Create your own model
-		model = Model(input=input, output=x)
+		model = Model(input=input_image, output=x)
 
 		print(">ia> Modified model using pretrained InceptionV3 model from keras:\n")
 		model.summary()

@@ -11,12 +11,12 @@ def configure_gpu_cpu(RUN_GPU, GPU_ALLOCATION):
     from keras import backend as k
     import os
     # To force code to run on cpu
-    if RUN_GPU==False:
+    if not RUN_GPU:
         os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
         os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
     if RUN_GPU and GPU_ALLOCATION !=100:
-        # TensorFlow congif
+        # TensorFlow config
         config = tf.ConfigProto()
 
         # Allocate memory as-needed

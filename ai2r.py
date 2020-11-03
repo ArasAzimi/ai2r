@@ -99,7 +99,7 @@ def main():
 	checkpoint_path=out_dir+ "/weights-improvement-{epoch:02d}-{val_acc:.2f}.hdf5"
 	np_dataset = datasets_dir+'/'+dataset
 
-	r = check.input_requrements(dataset, np_dataset, downlaod_dataset_if_not_exists)
+	r = check.input_requirements(dataset, np_dataset, downlaod_dataset_if_not_exists)
 	if not safe_str_cmp(r , "OK"):
 		print(">ia> Exited with error: {}".format(r))
 		return 0
@@ -107,7 +107,7 @@ def main():
 	if downlaod_dataset_if_not_exists:
 		if os.path.isfile(datasets_dir+'/aircrafts.npy')== False:
 			if os.path.isfile('datasets.zip')== False:
-				downlaod_dataset(datasets_dir)
+				download_dataset(datasets_dir)
 			extract_dataset(datasets_dir)
 
 	r = check.model_requirements(model_name, img_size)

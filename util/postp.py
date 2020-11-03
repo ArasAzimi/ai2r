@@ -22,8 +22,8 @@ def plot_save_results(model_fit, model_path):
 
 def save_model(model, model_path, lb, eval_report, CONFIG):
     """
-    * Saves model and lables in pickle formart
-    * Saves the model summry and hyper parameters in .txt file
+    * Saves model and labels in pickle format
+    * Saves the model summary and hyper parameters in .txt file
     """
     import pickle
     # save the model and label binarizer to disk

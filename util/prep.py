@@ -1,8 +1,8 @@
 import numpy as np
 
-def downlaod_dataset(datasets_dir):
+def download_dataset(datasets_dir):
     """
-    Downlaods data from an online server
+    Downloads data from an online server
     """
     import urllib.request
     print(">ia> Downloading numpy dataset for ai2r...")
@@ -44,8 +44,8 @@ def prepare_input(imagePaths, img_size):
     import cv2
     import random
 
-    GRAY_SCALE_VEC = False
-    if GRAY_SCALE_VEC:
+    gray_scale_vec = False
+    if gray_scale_vec:
         print(">ia> Converting to grayscale ...")
 
     # initialize the data and labels
@@ -58,16 +58,16 @@ def prepare_input(imagePaths, img_size):
 
     # loop over the input images
     for imagePath in imagePaths:
-    	image = cv2.imread(imagePath)
-    	image = cv2.resize(image, (img_size[0], img_size[1]))
+        image = cv2.imread(imagePath)
+        image = cv2.resize(image, (img_size[0], img_size[1]))
 
-    	if GRAY_SCALE_VEC:
-    		image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    		image = np.reshape(image, (img_size[0]* img_size[1]))
-    	data.append(image)
+        if gray_scale_vec:
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            image = np.reshape(image, (img_size[0]* img_size[1]))
+        data.append(image)
 
-    	label = imagePath.split(os.path.sep)[-2]
-    	labels.append(label)
+        label = imagePath.split(os.path.sep)[-2]
+        labels.append(label)
     print(">ia> Returning `data` and `labels`...")
     return  data, labels
 

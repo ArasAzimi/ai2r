@@ -1,6 +1,6 @@
 {
   "dataset":{
-    "downlaod_ai2r_dataset": true
+    "download_ai2r_dataset": true
   },
 
   "train":{

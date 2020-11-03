@@ -1,4 +1,4 @@
-class Predict():
+class Predict:
     """
     Predict class:
     To run prediction and also used for flask application
@@ -30,7 +30,7 @@ class Predict():
         with open(self.config_file) as json_config_file:
             CONFIG = json.load(json_config_file)
 
-        # Retrive configuration paramters from the json file
+        # Retrieve configuration parameters from the json file
         img_w = CONFIG['valid']['img_w']
         img_h = CONFIG['valid']['img_h']
         img_size = img_w, img_h
@@ -39,7 +39,7 @@ class Predict():
             # Setting this to True will run vg116 trained on imagenet first to make sure there is an airplane in the image not a horse!
             run_vgg16_keras_first = False
 
-            if run_vgg16_keras_first == True:
+            if run_vgg16_keras_first:
                 labels = pretrained.predict_vgg16_keras_imagenet(image)
 
                 for i in range(len(labels[0])):

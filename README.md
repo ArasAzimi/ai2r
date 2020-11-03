@@ -1,7 +1,7 @@
 # AI for Airplane classification (ai2r)
 
 ### Training
-Assuming that you have got the requirements setup on your local system, in a virtual environment or in a docker image; start by `python ai2r.py -d dataset_name -m model_name --gpu 1`. Alternatively you can set your desired paramters in "Train.sh" and run this bash file.
+Assuming that you have got the requirements setup on your local system, in a virtual environment or in a docker image; start by `python ai2r.py -d dataset_name -m model_name --gpu 1`. Alternatively you can set your desired parameters in "Train.sh" and run this bash file.
 * `dataset_name` is the name of the dataset which has to be put in raw directory. If `raw` data does not exists or you want to use current ai2r dataset the datset will be downloaded and extracted in a new directory "datasets". You will see the details of this process in the prompt messages.
 * `model_name` is the name of a model to be used. This should be defined in models directory. Currently this can be set to one of:  
   > inceptionv3_pretrained  
