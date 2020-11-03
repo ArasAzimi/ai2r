@@ -18,8 +18,8 @@ class Vgg16_pt:
         import tensorflow as tf
 
         import keras
-        # img_dim_ordering = 'tf'
-        keras.backend.image_data_format()
+        img_dim_ordering = "channels_last"
+        keras.backend.set_image_data_format(img_dim_ordering)
 
         inputShape = (height, width, depth)
         # Get the convolutional part of a VGG network trained on ImageNet
