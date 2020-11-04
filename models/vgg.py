@@ -22,13 +22,12 @@ class Vgg16_pt:
         keras.backend.set_image_data_format(img_dim_ordering)
 
         inputShape = (height, width, depth)
-        # Get the convolutional part of a VGG network trained on ImageNet
-        model = VGG16(weights='imagenet', include_top=False)
-        print(">ia> Original pretrained model from keras:\n")
-        model.summary()
-
         # Create your own input format
         input_image = Input(shape=inputShape, name='image_input')
+        # Get the convolutional part of a VGG network trained on ImageNet
+        model = VGG16(weights='imagenet', include_top=False, input_tensor=input_image)
+        print(">ia> Original pretrained model from keras:\n")
+        model.summary()
 
         # Use the generated model
         output_vgg16_conv = model(input_image)
@@ -40,9 +39,9 @@ class Vgg16_pt:
         x = Dense(classes, activation='softmax', name='predictions')(x)
 
         # Create your own model
-        model = Model(input=input_image, output=x)
+        model = tf.keras.Model(input_image, x)
 
         # In the summary, weights and layers from VGG part will be hidden, but they will be fit during the training
-        print(">ia> Modified model using pretrained VGG16 model from keras:\n")
+        print(">ia> Modified model using pre-trained VGG16 model from Keras:\n")
         model.summary()
         return model
