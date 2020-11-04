@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def time_it(func):
     import time
 
@@ -8,6 +9,7 @@ def time_it(func):
         print(">ia> {} was called.".format(func.__name__))
         start_time = time.time()
         ret = func(*args, **kwargs)
-        print(">ia> {} took {} seconds".format(func.__name__, time.time()-start_time))
+        print(">ia> {} took {} seconds".format(func.__name__, time.time() - start_time))
         return ret
+
     return time_it_decorator

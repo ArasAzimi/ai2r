@@ -6,6 +6,7 @@ from predict_pretrained import pretrained
 
 bp = Blueprint('show', __name__)
 
+
 @bp.route('/show', methods=['POST'])
 def show():
     if request.method == 'POST':
@@ -16,4 +17,4 @@ def show():
         except ValueError:
             return jsonify("Please enter a valid filename.")
 
-        return render_template("show.html", in_image = image)
+        return render_template("show.html", in_image=image)

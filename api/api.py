@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_restful import Resource, Api
 
+
 def create_app(test_config=None):
     """
     Create the flask app and initialize some required configurations
@@ -11,18 +12,18 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     api = Api(app)
 
-    AIRCRAFTS_FOLDER = os.path.join('static', 'aircrafts')
-    TRAINED_MODEL_FOLDER = os.path.join(os.path.split(os.getcwd())[0],
+    aircraft_folder = os.path.join('static', 'aircrafts')
+    trained_model_folder = os.path.join(os.path.split(os.getcwd())[0],
                                         'deployment', 'models')
     CONFIG_FILE = os.path.join(os.path.split(os.getcwd())[0], 'config.json')
-    DATABASE=os.path.join(app.instance_path, 'api.sqlite')
+    DATABASE = os.path.join(app.instance_path, 'api.sqlite')
 
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=DATABASE,
-        UPLOAD_FOLDER = AIRCRAFTS_FOLDER,
-        MODEL_FOLDER = TRAINED_MODEL_FOLDER,
-        MODEL_CONFIG_FILE = CONFIG_FILE
+        UPLOAD_FOLDER=aircraft_folder,
+        MODEL_FOLDER=trained_model_folder,
+        MODEL_CONFIG_FILE=CONFIG_FILE
     )
 
     if test_config is None:
@@ -55,6 +56,7 @@ def create_app(test_config=None):
     app.register_blueprint(show.bp)
 
     return app
+
 
 if __name__ == '__main__':
     app = create_app()

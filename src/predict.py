@@ -3,6 +3,7 @@ class Predict:
     Predict class:
     To run prediction and also used for flask application
     """
+
     def __init__(self, *args, **kwargs):
         self.image = args[0]
         self.model = args[1]
@@ -15,7 +16,6 @@ class Predict:
         from keras.models import load_model
         from keras import backend
         import pickle
-        import numpy as np
         import json
         import cv2
 
@@ -23,7 +23,6 @@ class Predict:
         model = self.model
         model_file = self.model_file
         label_file = self.label_file
-
 
         image_original = cv2.imread(image)
         # Reading configurations from config.json
@@ -36,23 +35,24 @@ class Predict:
         img_size = img_w, img_h
 
         if model == 'vgg16_pretrained':
-            # Setting this to True will run vg116 trained on imagenet first to make sure there is an airplane in the image not a horse!
+            # Setting this to True will run vg116 trained on imagenet first to make sure there is an airplane in the
+            # image not a horse!
             run_vgg16_keras_first = False
 
             if run_vgg16_keras_first:
                 labels = pretrained.predict_vgg16_keras_imagenet(image)
 
                 for i in range(len(labels[0])):
-                    print('%s (%.2f%%)' % (labels[0][i][1], labels[0][i][2]*100))
+                    print('%s (%.2f%%)' % (labels[0][i][1], labels[0][i][2] * 100))
 
                 label1 = labels[0][0][1]
                 percent1 = labels[0][0][2]
 
                 label2 = labels[0][1][1]
                 percent2 = labels[0][1][2]
-                if	label1=='airliner' or label2=='airliner':
+                if label1 == 'airliner' or label2 == 'airliner':
                     image = cv2.resize(image_original, (img_w, img_h))
-                    image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+                    image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
 
                     # Load the model and label binarizer
                     print(">ia> Loading vgg16_pretrained model and label binarizer...")
@@ -70,7 +70,7 @@ class Predict:
                     print('>ia> This is not an airliner. Do not run ai2r aircraft type recognition!')
             else:
                 image = cv2.resize(image_original, (img_w, img_h))
-                image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+                image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
 
                 # Load the model and label binarizer
                 print(">ia> Loading vgg16_pretrained model and label binarizer...")
@@ -84,9 +84,9 @@ class Predict:
 
                 label = labels
                 percent = predictions[0][i] * 100
-        elif  model == 'inceptionv3_pretrained':
+        elif model == 'inceptionv3_pretrained':
             image = cv2.resize(image_original, (img_w, img_h))
-            image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+            image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
 
             # Load the model and label binarizer
             print(">ia> Loading inceptionv3_pretrained model and label binarizer...")
@@ -103,8 +103,8 @@ class Predict:
         else:
             print(">ia> Check if model is a correct one!")
 
-        res = {"label":label,
-               "percent":percent}
+        res = {"label": label,
+               "percent": percent}
 
         backend.clear_session()
         return res
