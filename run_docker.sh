@@ -15,7 +15,7 @@ then
   if [ "$2" = "train" ]
   then
       echo ">ia> Using Docker with CPU for training."
-      docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash Train.sh
+      docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash train.sh
   else
       echo ">ia> Using Docker with CPU for prediction."
       docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash predict.sh
@@ -29,7 +29,7 @@ then
     if [ "$2" = "train" ]
     then
         echo ">ia> Using Docker with CPU for training."
-        docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash Train.sh
+        docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash train.sh
     else
         echo ">ia> Using Docker with CPU for prediction."
         docker run -it -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash predict.sh
@@ -49,7 +49,7 @@ then
       if [ "$2" = "train" ]
       then
         echo ">ia> Using Docker with CPU for training."
-        docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash Train.sh
+        docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash train.sh
       else
         echo ">ia> Using Docker with CPU for prediction"
         docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0_cpu bash predict.sh
@@ -58,7 +58,7 @@ then
       if [ "$2" = "train" ]
       then
         echo ">ia> Using Docker with GPU for training."
-        nvidia-docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0 bash Train.sh
+        nvidia-docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0 bash train.sh
       else
             echo ">ia> DEFAULT: Using Docker with GPU for prediction."
         nvidia-docker run -it --rm --env QT_X11_NO_MITSHM=1 -e DISPLAY=$DISPLAY -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH  -v $ai2rDIR:/ai2r azmer/ai2r:rev1.0 bash predict.sh

@@ -25,10 +25,10 @@ summary of the training and a .png graph of how the training/validation progress
 #### Training using docker:
 * `cd` to the ai2r project directory.
 * Specify the model and dataset to be used in `train.sh` script.
-* Run `bash runDocker.sh gpu train`. This will run a docker container with the requirements installed. It will also mount
+* Run `bash run_docker.sh gpu train`. This will run a docker container with the requirements installed. It will also mount
  the current directory to `/ai2r` directory in the docker so that the docker container has access to `train.sh`. 
  The docker image will run `train.sh` in the same manner as if you run ai2r.py on your system or in virtual environment.
-* To use a docker image with CPU version of keras/tensorflow for training use `bash runDocker.sh cpu train`.
+* To use a docker image with CPU version of Keras/Tensorflow for training use `bash run_docker.sh cpu train`.
 
 ### Prediction
 Assuming some training is done and results are available under "out" directory, you can start by 
