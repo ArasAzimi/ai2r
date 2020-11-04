@@ -26,8 +26,8 @@ summary of the training and a .png graph of how the training/validation progress
 * `cd` to the ai2r project directory.
 * Specify the model and dataset to be used in `train.sh` script.
 * Run `bash runDocker.sh gpu train`. This will run a docker container with the requirements installed. It will also mount
- the current directory to `/ai2r` directory in the docker so that the docker container has access to `Train.sh`. 
- The docker image will run `Train.sh` in the same manner as if you run ai2r.py on your system or in virtual environment.
+ the current directory to `/ai2r` directory in the docker so that the docker container has access to `train.sh`. 
+ The docker image will run `train.sh` in the same manner as if you run ai2r.py on your system or in virtual environment.
 * To use a docker image with CPU version of keras/tensorflow for training use `bash runDocker.sh cpu train`.
 
 ### Prediction
@@ -37,15 +37,15 @@ for the desired model to be used for prediction.
 
 #### Prediction using docker:
 * `cd` to the ai2r project directory.
-* Add the path to the image you would like to run a prediction on to the `Predict.sh` script.
-* Run `bash runDocker.sh`. This will run a docker container with the requirements installed. It will also mount the 
-current directory to `/ai2r` directory in the docker so that the docker container has access to `Predict.sh`. 
-The docker image will run `Predict.sh` in the same manner as if you run predict.py on your system or in virtual environment.
-* Running `bash runDocker.sh` by default will use a GPU version docker image and run prediction on the test image 
-specified in `Predict.sh`. To use a docker image with CPU version of keras/tensorflow for prediction use `bash runDocker.sh cpu`
+* Add the path to the image you would like to run a prediction on to the `predict.sh` script.
+* Run `bash run_docker.sh`. This will run a docker container with the requirements installed. It will also mount the 
+current directory to `/ai2r` directory in the docker so that the docker container has access to `predict.sh`. 
+The docker image will run `predict.sh` in the same manner as if you run predict.py on your system or in virtual environment.
+* Running `bash run_docker.sh` by default will use a GPU version docker image and run prediction on the test image 
+specified in `predict.sh`. To use a docker image with CPU version of Keras/Tensorflow for prediction use `bash run_docker.sh cpu`
 
 ### Using the Flask api
-The code for the [Flask](http://flask.pocoo.org/) api is located under "api" directry. Any source code related to 
+The code for the [Flask](http://flask.pocoo.org/) api is located under "api" directory. Any source code related to 
 models training or prediction is on the root director of the project or under "src" directory. Trained models available 
 to the api must be added to "deployment/model".
 #### Testing Flask api
@@ -54,8 +54,8 @@ The required [Postman](https://www.getpostman.com/) [collection](https://github.
   root directory of the project. These files can be imported into Postman to test or try out the api.
 
 ### Data
-The data is scraped from the web. Currently it contains samples for 13 types of airplanes mostly airlines. Data is
- not exactly balanced but it is good enough to fly!
+The data is scraped from the web. Currently it contains samples for 13 types of passenger airplanes. Data is
+not exactly balanced but it is good enough to fly with!
 Here is a list of airplanes in the data:  
 
 |Type|Manufacturer|Code|#Samples|

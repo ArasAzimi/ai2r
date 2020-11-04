@@ -1,17 +1,18 @@
-# Downloading data from https://github.com/fchollet/deep-learning-models/releases/download/v0.5/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
 class InceptionV3_pt:
-	#InceptionV3_pt , 'pt' stands for pretrained
+	"""Downloading data from https://github.com/fchollet/deep-learning-models/releases/download/v0.5
+	/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5 """
+
 	@staticmethod
 	def build(width, height, depth, classes):
 		"""
 		This fucntion will take the pretrained InceptionV3 model from keras and modify
 		the input size, number of classes, or both based on user input.
+
+		InceptionV3_pt , 'pt' stands for pretrained
 		"""
 		from keras.applications.inception_v3 import InceptionV3
-		from keras.preprocessing import image
 		from keras.layers import Input, Flatten, Dense
 		from keras.models import Model
-		import numpy as np
 
 		from keras import backend as K
 		img_dim_ordering = 'tf'
@@ -38,6 +39,6 @@ class InceptionV3_pt:
 		#Create your own model
 		model = Model(input=input_image, output=x)
 
-		print(">ia> Modified model using pretrained InceptionV3 model from keras:\n")
+		print(">ia> Modified model using pre-trained InceptionV3 model from Keras:\n")
 		model.summary()
 		return model
