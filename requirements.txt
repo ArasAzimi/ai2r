@@ -1,8 +1,9 @@
-numpy
-pandas
-keras
-sklearn
-tensorflow
-tensorflow-gpu
-imutils
-opencv-python
+numpy==1.16.0
+pandas==1.1.4
+keras==2.4.3
+sklearn==0.0
+h5py==2.10.0
+matplotlib==3.3.2
+tensorflow==2.3.1
+imutils==0.5.3
+opencv-python==4.4.0.46

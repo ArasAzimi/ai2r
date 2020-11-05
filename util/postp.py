@@ -2,7 +2,6 @@ def plot_save_results(model_fit, model_path):
     """
     Plotting model's train/test loss/accuracy
     """
-    import matplotlib
     import matplotlib.pyplot as plt
 
     plot_path = model_path + "_plt.png"
